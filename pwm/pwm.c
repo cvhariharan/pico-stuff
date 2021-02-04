@@ -3,12 +3,12 @@
 #include "hardware/pwm.h"
 
 void main() {
-    const int SERVO_PIN = 25;
+    const int LED_PIN = 25;
     const int PWM_HIGH = 50;
 
-    gpio_set_function(SERVO_PIN, GPIO_FUNC_PWM);
+    gpio_set_function(LED_PIN, GPIO_FUNC_PWM);
     
-    uint slice_num = pwm_gpio_to_slice_num(SERVO_PIN);
+    uint slice_num = pwm_gpio_to_slice_num(LED_PIN);
 
     pwm_set_wrap(slice_num, PWM_HIGH);
     pwm_config config = pwm_get_default_config();
@@ -21,7 +21,7 @@ void main() {
         if(i > PWM_HIGH || i <= 0) {
             dir *= -1;
         }
-        pwm_set_chan_level(slice_num, pwm_gpio_to_channel(SERVO_PIN), i);
+        pwm_set_chan_level(slice_num, pwm_gpio_to_channel(LED_PIN), i);
         pwm_set_enabled(slice_num, true);
         sleep_ms(16);
         i += dir;
